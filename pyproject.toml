@@ -1,0 +1,10 @@
+[project]
+name = "hookline"
+version = "0.1.0"
+description = "Webhook receiver with HMAC replay protection, idempotency, retries and dead letters"
+requires-python = ">=3.10"
+dependencies = ["fastapi", "httpx"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
