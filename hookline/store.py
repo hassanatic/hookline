@@ -41,7 +41,10 @@ class Event:
 
 class Store:
     def __init__(self, path: str = "hookline.db") -> None:
-        self._db = sqlite3.connect(path)
+        # check_same_thread=False: the web layer serves from worker threads while
+        # tests and the dispatcher hold the same connection. SQLite serialises
+        # writes itself, and this store issues short, committed statements only.
+        self._db = sqlite3.connect(path, check_same_thread=False)
         self._db.execute("PRAGMA journal_mode=WAL")
         self._db.executescript(SCHEMA)
 
